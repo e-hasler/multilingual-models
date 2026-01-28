@@ -1,6 +1,7 @@
 
 import os
-
+import pandas as pd
+from IPython.display import display
 
 os.environ["KERAS_BACKEND"] = "torch"  # Use PyTorch instead of JAX
 
@@ -14,24 +15,44 @@ import keras_hub
 # When running only inference, bfloat16 saves memory usage significantly.
 keras.config.set_floatx("bfloat16")
 
-bloom_lm = keras_hub.models.BloomCausalLM.from_preset(
-    "bloom_1.1b_multi"
-)
-bloom_lm.summary()
 
-outputs = bloom_lm.generate([
+models = ["bloom_560m_multi", "bloom_1.1b_multi", "bloom_1.7b_multi", "bloom_3b_multi",
+          "bloomz_560m_multi", "bloomz_1.1b_multi", "bloomz_1.7b_multi", "bloomz_3b_multi"]
+queries = [
     "Explain in simple terms differential equations.",
-], max_length=512)
+]
 
-# Print outputs to console
-for i, output in enumerate(outputs):
-    print(f"Output {i+1}:\n{output}\n{'-'*40}\n")
+# Create dataframe with outputs
 
-# Save outputs to a text file
+df = pd.DataFrame({"model": models, "output": [""] * len(models)})
+# Duplicate each row per query
+df = df.loc[df.index.repeat(len(queries))].reset_index(drop=True)
+df["query"] = queries * len(models)
+
+display(df.head())
+
+# Load models from KerasHub and generate outputs
+for model in models[0:]:
+    for query in queries:
+        # Load model
+        bloom_lm = keras_hub.models.BloomCausalLM.from_preset(
+            model
+        )
+        bloom_lm.summary()
+
+        # Generate output
+        outputs = bloom_lm.generate([
+            query,
+        ], max_length=512)
+
+        df.loc[(df["model"] == model) & (df["query"] == query), "output"] = outputs[0]
+        print(f"Generated output for model {model} is {outputs[0]}")
+
+
+# Display dataframe in output file
 with open(output_path, "w") as f:
-    for i, output in enumerate(outputs):
-        f.write(f"Output {i+1}:\n{output}\n{'-'*40}\n")
-print(f"Outputs saved to {output_path}")
+    f.write(df.to_string())
+    print(f"Outputs displayed in {output_path}")
 
 # Clean up resources
 keras.backend.clear_session()
