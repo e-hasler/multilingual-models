@@ -6,7 +6,8 @@ from IPython.display import display
 os.environ["KERAS_BACKEND"] = "torch"  # Use PyTorch instead of JAX
 
 script_dir = os.path.dirname(os.path.abspath(__file__))  # folder containing your script
-output_path = os.path.join(script_dir, "bloom_outputs.txt")
+output_path = os.path.join(script_dir, "bloom_outputs.tsv")
+    # The output file extension is already set to .tsv
 
 
 import keras
@@ -32,7 +33,7 @@ df["query"] = queries * len(models)
 display(df.head())
 
 # Load models from KerasHub and generate outputs
-for model in models[0:]:
+for model in models[:0]: #TODO: change to models to run all models
     for query in queries:
         # Load model
         bloom_lm = keras_hub.models.BloomCausalLM.from_preset(
@@ -49,10 +50,10 @@ for model in models[0:]:
         print(f"Generated output for model {model} is {outputs[0]}")
 
 
-# Display dataframe in output file
-with open(output_path, "w") as f:
-    f.write(df.to_string())
-    print(f"Outputs displayed in {output_path}")
+
+# Save dataframe as TSV for better readability
+df.to_csv(output_path, sep="\t", index=False)
+print(f"Outputs saved as TSV in {output_path}")
 
 # Clean up resources
 keras.backend.clear_session()
