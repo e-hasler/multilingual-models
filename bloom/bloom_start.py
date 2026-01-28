@@ -15,13 +15,17 @@ import keras_hub
 keras.config.set_floatx("bfloat16")
 
 bloom_lm = keras_hub.models.BloomCausalLM.from_preset(
-    "bloom_560m_multi"
+    "bloom_1.1b_multi"
 )
 bloom_lm.summary()
 
 outputs = bloom_lm.generate([
     "Explain in simple terms differential equations.",
 ], max_length=512)
+
+# Print outputs to console
+for i, output in enumerate(outputs):
+    print(f"Output {i+1}:\n{output}\n{'-'*40}\n")
 
 # Save outputs to a text file
 with open(output_path, "w") as f:
