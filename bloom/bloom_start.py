@@ -49,12 +49,14 @@ for model in models[:0]: #TODO: change to models to run all models
         df.loc[(df["model"] == model) & (df["query"] == query), "output"] = outputs[0]
         print(f"Generated output for model {model} is {outputs[0]}")
 
+        # Clean up
+        del bloom_lm
+        keras.backend.clear_session()
+
 
 
 # Save dataframe as TSV for better readability
 df.to_csv(output_path, sep="\t", index=False)
 print(f"Outputs saved as TSV in {output_path}")
 
-# Clean up resources
-keras.backend.clear_session()
-del bloom_lm
+
