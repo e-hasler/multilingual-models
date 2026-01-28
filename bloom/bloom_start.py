@@ -4,6 +4,10 @@ import os
 
 os.environ["KERAS_BACKEND"] = "torch"  # Use PyTorch instead of JAX
 
+script_dir = os.path.dirname(os.path.abspath(__file__))  # folder containing your script
+output_path = os.path.join(script_dir, "bloom_outputs.txt")
+
+
 import keras
 import keras_hub
 
@@ -20,10 +24,10 @@ outputs = bloom_lm.generate([
 ], max_length=512)
 
 # Save outputs to a text file
-with open("bloom_outputs.txt", "w") as f:
+with open(output_path, "w") as f:
     for i, output in enumerate(outputs):
         f.write(f"Output {i+1}:\n{output}\n{'-'*40}\n")
-print("Outputs saved to bloom_outputs.txt")
+print(f"Outputs saved to {output_path}")
 
 # Clean up resources
 keras.backend.clear_session()
