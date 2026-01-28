@@ -33,9 +33,10 @@ df["query"] = queries * len(models)
 display(df.head())
 
 # Load models from KerasHub and generate outputs
-for model in models[0]: #TODO: change to models to run all models
+for model in models[:1]: #TODO: change to models to run all models
     for query in queries:
         # Load model
+        
         bloom_lm = keras_hub.models.BloomCausalLM.from_preset(
             model
         )
