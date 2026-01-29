@@ -1,0 +1,32 @@
+model	output	query
+bloom_560m_multi	"Explain in simple terms differential equations. It is a simple method for developing differential equations in general. It is also a simple method for developing differential equations in general.
+Differential Equations in General
+
+Theory
+In this section we will present some important properties of differential equations in general.
+1.
+Theorem 1 (Differential Equations in General).
+Let G be a compact Lie group and let f : G → R be a function. Let (G, f ) be a compact, separable manifold, and consider the map:
+Theorem 2 (G-algebra structure). Let G be a compact Lie group and let f : G → R be a function. Then, G is a G-algebra. G is a G-algebra. The map
+is an isomorphism.
+Proof. Let f : G → R be a function and let
+where f is a function on G. We can show that the map
+is an isomorphism, that is, f is a G-algebra isomorphism, and that the identity map is a G-algebra isomorphism.
+In general, it has been known since many years that the following are true (for a proof of the above theorems see (2.1), (2.2), (2.3) and (2.4)).
+Theorem 3 (G-derivation).
+Let G be a compact Lie group. The Lie algebra g = Lie(G) is a Lie algebra of order (G, f ), for f : G → R, where g is the Lie algebra of Lie(G).
+Theorem 4 (G-algebra structure). The Lie algebra g = Lie(G) is a G-algebra.
+Theorem 5 (Lie algebra structure). Let G be a compact Lie group. The Lie algebra g = Lie(G) is an algebra, i.e.,
+Proof. Let (G, g) be a G-algebra. It is known (see (2.1), (2.2), (2.3), (2.4)) that
+It follows that g = G, g is a Lie algebra and G is a Lie algebra. Therefore, G is an algebra. Therefore, G is Lie algebra.
+The Lie algebra g = Lie(G), is also a Lie algebra in general.
+Theorem 6 (Lie algebra structure). The Lie algebra g = Lie(G) is an algebra in general.
+Theorem 7 (Lie algebra isomorphism). The Lie algebra g = Lie(G) is an algebra isomorphism.
+Proof. It has been"	Explain in simple terms differential equations.
+bloom_1.1b_multi		Explain in simple terms differential equations.
+bloom_1.7b_multi		Explain in simple terms differential equations.
+bloom_3b_multi		Explain in simple terms differential equations.
+bloomz_560m_multi		Explain in simple terms differential equations.
+bloomz_1.1b_multi		Explain in simple terms differential equations.
+bloomz_1.7b_multi		Explain in simple terms differential equations.
+bloomz_3b_multi		Explain in simple terms differential equations.

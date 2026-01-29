@@ -34,14 +34,14 @@ display(df.head())
 
 # Load models from KerasHub and generate outputs
 for model in models[:1]: #TODO: change to models to run all models
-    for query in queries:
-        # Load model
-        
-        bloom_lm = keras_hub.models.BloomCausalLM.from_preset(
-            model
-        )
-        bloom_lm.summary()
 
+    # Load model
+    bloom_lm = keras_hub.models.BloomCausalLM.from_preset(
+        model
+    )
+    bloom_lm.summary()
+    
+    for query in queries:
         # Generate output
         outputs = bloom_lm.generate([
             query,
@@ -50,11 +50,9 @@ for model in models[:1]: #TODO: change to models to run all models
         df.loc[(df["model"] == model) & (df["query"] == query), "output"] = outputs[0]
         print(f"Generated output for model {model} is {outputs[0]}")
 
-        # Clean up
-        del bloom_lm
-        keras.backend.clear_session()
-
-
+    # Clean up
+    del bloom_lm
+    keras.backend.clear_session()
 
 # Save dataframe as TSV for better readability
 df.to_csv(output_path, sep="\t", index=False)
